@@ -6,7 +6,6 @@ import { ClienteComponent } from './cliente.component';
 import { ListaClientesComponent } from './lista-clientes/lista-clientes.component';
 import { ClienteRoutingModule } from './cliente-routing.module';
 import { ClienteEditarComponent } from './cliente-editar/cliente-editar.component';
-import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   imports: [
@@ -14,7 +13,6 @@ import { SharedModule } from '../shared/shared.module';
     FormsModule,
     ClienteRoutingModule,
     ReactiveFormsModule,
-    SharedModule
   ],
   declarations: [
     ClienteComponent,
