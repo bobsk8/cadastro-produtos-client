@@ -1,0 +1,40 @@
+<div class="jumbotron">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <h3>Cadastro Clientes</h3>
+                <form [formGroup]="formulario" (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <label>Primeiro Nome</label>
+                        <input type="text" formControlName="nome" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.nome.errors }" />
+                        <div *ngIf="submitted && form.nome.errors" class="invalid-feedback">
+                            <div *ngIf="form.nome.errors.required">Campo obrigatório</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Idade</label>
+                        <input type="number" formControlName="idade" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.idade.errors }" />
+                        <div *ngIf="submitted && form.idade.errors" class="invalid-feedback">
+                            <div *ngIf="form.idade.errors.required">Campo obrigatório</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Sexo</label>
+                        <select formControlName="sexo" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.sexo.errors }">
+                            <option value="" selected>Selecione</option>
+                            <option [ngValue]="sex.nome" *ngFor="let sex of sexos">{{sex.nome}}</option>
+                        </select>
+                        <div *ngIf="submitted && form.sexo.errors" class="invalid-feedback">
+                            <div *ngIf="form.sexo.errors.required">Campo obrigatório</div>
+                        </div>
+                    </div>                    
+                    <div class="form-group">
+                        <button class="btn btn-primary">Cadastrar</button>
+                    </div>
+                </form>
+                <app-lista-clientes [clientes]="clientes"></app-lista-clientes>
+            </div>
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>
