@@ -7,17 +7,18 @@ import { ClienteComponent } from '../cliente/cliente.component';
   providedIn: 'root'
 })
 export class ClienteDeactivateGuard implements CanDeactivate<ClienteComponent> {
-  constructor(
-    private router: Router
-  ) { }
 
   canDeactivate(
     component: ClienteComponent,
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
-    console.log('saindo');
-    console.log(component.submitted);
+    let confirmacao = false;
+
+    if (!component.submitted && component.formulario.touched) {
+      confirmacao = confirm('Deseja sair do formulário?');
+      return confirmacao;
+    }
     return true;
   }
 }
