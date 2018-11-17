@@ -1,23 +1,24 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, RouterStateSnapshot, Router, CanDeactivate } from '@angular/router';
 import { Observable } from '../../../node_modules/rxjs';
-import { ClienteComponent } from '../cliente/cliente.component';
+import { ClienteFormComponent } from '../main/cliente/cliente-form/cliente-form.component';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ClienteDeactivateGuard implements CanDeactivate<ClienteComponent> {
-  constructor(
-    private router: Router
-  ) { }
+export class ClienteDeactivateGuard implements CanDeactivate<ClienteFormComponent> {
 
   canDeactivate(
-    component: ClienteComponent,
+    component: ClienteFormComponent,
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
-    console.log('saindo');
-    console.log(component.submitted);
+    let confirmacao = false;
+
+    if (!component.submitted && component.formulario && component.formulario.touched) {
+      confirmacao = confirm('Deseja sair do formulário?');
+      return confirmacao;
+    }
     return true;
   }
 }
