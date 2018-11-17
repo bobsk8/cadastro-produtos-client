@@ -1,4 +1,5 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, HAMMER_GESTURE_CONFIG  } from '@angular/platform-browser';
+import { GestureConfig } from '@angular/material';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -25,7 +26,7 @@ import { MenuComponent } from './main/shared/header/menu/menu.component';
     AppRoutingModule,
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [ { provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig } ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

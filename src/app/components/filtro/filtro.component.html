@@ -1,0 +1,23 @@
+<mat-form-field>
+    <mat-select placeholder="Escolha a nacionalidade" [(value)]="filtro.nacionalidade">
+      <mat-option *ngFor="let nacionalidade of nacionalidades" [value]="nacionalidade.value">
+        {{nacionalidade.viewValue}}
+      </mat-option>
+    </mat-select>
+</mat-form-field><br>
+<mat-form-field>
+  <mat-select placeholder="Escolha o Estilo" [(value)]="filtro.estilo">
+    <mat-option *ngFor="let estilo of estilos" [value]="estilo.value">
+      {{estilo.viewValue}}
+    </mat-option>
+  </mat-select>
+</mat-form-field><br>
+<mat-form-field>
+  <mat-select placeholder="Escolha  o Armargor" [(value)]="filtro.armargor">
+    <mat-option *ngFor="let armargor of armargores" [value]="armargor.value">
+      {{armargor.viewValue}}
+    </mat-option>
+  </mat-select>
+</mat-form-field><br>
+<mat-slider displayValue="0" min="0" max="1000" step="1" [(value)]="filtro.minSliderVal"></mat-slider>
+teste: {{filtro.minSliderVal}}
