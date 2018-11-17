@@ -13,7 +13,7 @@ export class AuthService {
   constructor(private router: Router) { }
 
   doLogin(login: any) {
-    if (login.username.value === 'teste' && login.pass.value === 'pass') {
+    if (login.username.value === 'bobsk8' && login.pass.value === 'vasco20') {
       this.usuarioAutenticado = true;
       this.mostrarMenuEmitter.emit(true);
       this.router.navigate(['home']);

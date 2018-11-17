@@ -13,7 +13,7 @@
       <th scope="row">{{client.nome}}</th>
       <td>{{client.idade}}</td>
       <td>{{client.sexo}}</td>
-      <td><button class="btn btn-secondary">Alterar</button></td>
+      <td><button class="btn btn-secondary" (click)="openDialog(client)">Alterar</button></td>
       <td><button class="btn btn-danger" (click)="removerClientes(idx)">Excluir</button></td>
     </tr>    
   </tbody>
