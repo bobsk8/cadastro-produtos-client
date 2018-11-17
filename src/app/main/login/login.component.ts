@@ -32,11 +32,7 @@ export class LoginComponent implements OnInit {
   get form() { return this.formulario.controls; }
 
   loginApp() {
-    this.authService.fazerLogin(this.formulario.controls);
-  }
-
-  logoutApp() {
-    sessionStorage.clear();
+    this.authService.doLogin(this.formulario.controls);
   }
 
 }

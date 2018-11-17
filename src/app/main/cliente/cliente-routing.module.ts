@@ -2,9 +2,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 
 import { ClienteComponent } from './cliente.component';
-import { ClienteEditarComponent } from './cliente-editar/cliente-editar.component';
-import { ClienteGuard } from '../guards/cliente.guard';
-import { ClienteDeactivateGuard } from '../guards/cliente.deactivate.guard';
+import { ClienteFormComponent } from './cliente-form/cliente-form.component';
+import { ClienteGuard } from 'src/app/guards/cliente.guard';
+import { ClienteDeactivateGuard } from 'src/app/guards/cliente.deactivate.guard';
 
 const routes: Routes = [
   {
@@ -12,7 +12,7 @@ const routes: Routes = [
     canActivateChild: [ClienteGuard],
     canDeactivate: [ClienteDeactivateGuard],
     children: [
-      { path: ':id', component: ClienteEditarComponent }
+      { path: 'editar', component: ClienteFormComponent }
     ]
   }
 ];
