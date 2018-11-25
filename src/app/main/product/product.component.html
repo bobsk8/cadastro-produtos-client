@@ -1,0 +1,11 @@
+<div class="jumbotron">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <h3>Cadastro Produtos</h3>                
+                <app-product-form (childSubmit)="onSubmit($event)"></app-product-form>                
+                <app-lista-products [products]="products"></app-lista-products>
+            </div>
+        </div>
+    </div>
+</div>

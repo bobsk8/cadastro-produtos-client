@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, RouterStateSnapshot, Router, CanDeactivate } from '@angular/router';
 import { Observable } from '../../../node_modules/rxjs';
-import { ClienteFormComponent } from '../main/cliente/cliente-form/cliente-form.component';
+import { ProductFormComponent } from '../main/product/product-form/product-form.component';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ClienteDeactivateGuard implements CanDeactivate<ClienteFormComponent> {
+export class ProductDeactivateGuard implements CanDeactivate<ProductFormComponent> {
 
   canDeactivate(
-    component: ClienteFormComponent,
+    component: ProductFormComponent,
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {

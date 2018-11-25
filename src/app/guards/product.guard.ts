@@ -5,12 +5,12 @@ import { Observable } from '../../../node_modules/rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class ClienteGuard implements CanActivateChild {
+export class ProductGuard implements CanActivateChild {
   canActivateChild(
     childRoute: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean | Observable<boolean> | Promise<boolean> {
-    console.log('ClienteGuard');
+    console.log('ProductteGuard');
     return true;
   }
 }
