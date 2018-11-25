@@ -6,18 +6,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { LoginComponent } from './main/login/login.component';
 import { FooterComponent } from './main/shared/footer/footer.component';
 import { HeaderComponent } from './main/shared/header/header.component';
 import { MenuComponent } from './main/shared/header/menu/menu.component';
+import { LoginComponent } from './main/login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
     FooterComponent,
     HeaderComponent,
-    MenuComponent
+    MenuComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
