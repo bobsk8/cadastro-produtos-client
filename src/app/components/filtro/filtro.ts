@@ -5,5 +5,5 @@ export class Filtro {
         public armargor?: string,
         public minSliderVal?: number,
         public maxSliderVal?: number
-    ) {}
+    ) { }
 }

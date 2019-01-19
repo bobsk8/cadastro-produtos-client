@@ -29,6 +29,6 @@ export class AppComponent implements OnInit {
     .subscribe(res => {
       console.log('dadaos');
       console.log(res);
-    })
+    });
   }
 }
