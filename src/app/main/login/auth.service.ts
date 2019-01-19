@@ -10,7 +10,7 @@ import { catchError } from 'rxjs/operators';
 export class AuthService {
   httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type':  'application/json',
+      'Content-Type': 'application/json',
     })
   };
 
@@ -19,23 +19,13 @@ export class AuthService {
   constructor(
     private router: Router,
     private http: HttpClient
-    ) { }
+  ) { }
 
   doLogin(login: any): Observable<any> {
-    return this.http.get('/auth-jwt/login', this.httpOptions)
-    .pipe(
-      catchError(this.handleError)
-    );
-
-
-    // if (login.username.value === 'bobsk8' && login.pass.value === 'vasco20') {
-    //   this.usuarioAutenticado = true;
-    //   this.mostrarMenuEmitter.emit(true);
-    //   this.router.navigate(['home']);
-    // } else {
-    //   this.usuarioAutenticado = false;
-    //   this.mostrarMenuEmitter.emit(false);
-    // }
+    return this.http.post('/auth-jwt/login', login, this.httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
   usuarioEstaAutenticado() {
