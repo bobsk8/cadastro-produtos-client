@@ -1,8 +1,8 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { Observable, throwError, of } from 'rxjs';
+import { catchError, map, switchMap } from 'rxjs/operators';
+import { LoginEventService } from './login-event.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,21 +14,27 @@ export class AuthService {
     })
   };
 
-  private usuarioAutenticado = false;
-  mostrarMenuEmitter = new EventEmitter<boolean>();
+  usuarioAutenticado = false;
   constructor(
-    private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
+    private loginEventService: LoginEventService
   ) { }
 
   doLogin(login: any): Observable<any> {
-    return this.http.post('/auth-jwt/login', login, this.httpOptions)
-      .pipe(
+    return this.http.post('/api/auth-jwt/login', login, this.httpOptions)
+      .pipe(map(res => res['data']),
+      switchMap(data => {
+        if (data.login) {
+          localStorage.setItem('token', data.token);
+          this.loginEventService.loginEmit.emit(true);
+        }
+        return of(data);
+      }),
         catchError(this.handleError)
       );
   }
 
-  usuarioEstaAutenticado() {
+  getAutenticado() {
     return this.usuarioAutenticado;
   }
 

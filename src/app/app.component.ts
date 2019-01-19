@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from './main/login/auth.service';
+
+import { LoginEventService } from './main/login/login-event.service';
+import { UserService } from './main/user/user.service';
 
 @Component({
   selector: 'app-root',
@@ -11,11 +13,22 @@ export class AppComponent implements OnInit {
   mostrarMenu = false;
 
   constructor(
-    private authService: AuthService) { }
+    private loginEventService: LoginEventService,
+    private userService: UserService
+    ) { }
 
   ngOnInit() {
-    this.authService.mostrarMenuEmitter.subscribe(
+    this.loginEventService.loginEmit.subscribe(
       mostrar => this.mostrarMenu = mostrar
     );
+    this.getUserData();
+  }
+
+  getUserData() {
+    this.userService.getUserData()
+    .subscribe(res => {
+      console.log('dadaos');
+      console.log(res);
+    })
   }
 }
