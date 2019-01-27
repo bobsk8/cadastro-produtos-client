@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 
 import { UserTransformService } from './tranform/user-transform.service';
 
@@ -27,6 +27,7 @@ export class UserService {
     .pipe(map(res => {
       this.userTransformService.doUserDataTransform(res['data']);
       return res['data'];
-    }));
+    }),
+    catchError(this.userTransformService.erroUserDataTransform));
   }
 }
