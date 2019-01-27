@@ -42,7 +42,6 @@ export class LoginComponent implements OnInit {
     this.authService.doLogin(login)
       .subscribe(res => {
         if (res.login) {
-          this.authService.usuarioAutenticado = true;
           this.router.navigate(['home']);
         }
       });

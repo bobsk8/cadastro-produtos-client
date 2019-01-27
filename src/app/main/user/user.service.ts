@@ -1,7 +1,9 @@
-import { Injectable, EventEmitter } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError, of } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+import { UserTransformService } from './tranform/user-transform.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,11 +18,15 @@ export class UserService {
   };
 
   constructor(
+    private userTransformService: UserTransformService,
     private http: HttpClient
   ) { }
 
   getUserData(): Observable<any> {
     return this.http.get('api/user/datas', this.httpOptions)
-      .pipe(map(res => res['data']));
+    .pipe(map(res => {
+      this.userTransformService.doUserDataTransform(res['data']);
+      return res['data'];
+    }));
   }
 }

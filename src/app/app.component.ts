@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { LoginEventService } from './main/login/login-event.service';
 import { UserService } from './main/user/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -14,8 +15,9 @@ export class AppComponent implements OnInit {
 
   constructor(
     private loginEventService: LoginEventService,
-    private userService: UserService
-    ) { }
+    private userService: UserService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.loginEventService.loginEmit.subscribe(
@@ -26,9 +28,13 @@ export class AppComponent implements OnInit {
 
   getUserData() {
     this.userService.getUserData()
-    .subscribe(res => {
-      console.log('dadaos');
-      console.log(res);
-    });
+      .subscribe(res => {
+        if (res.login) {
+          this.mostrarMenu = true;
+        }
+      }, err => {
+        this.router.navigate(['']);
+        localStorage.clear();
+      });
   }
 }

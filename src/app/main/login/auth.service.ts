@@ -1,8 +1,8 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError, of } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
-import { LoginEventService } from './login-event.service';
+import { catchError, map } from 'rxjs/operators';
+import { LoginTransformService } from './transform/login-transform.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,28 +14,19 @@ export class AuthService {
     })
   };
 
-  usuarioAutenticado = false;
   constructor(
     private http: HttpClient,
-    private loginEventService: LoginEventService
+    private loginTransformService: LoginTransformService,
   ) { }
 
   doLogin(login: any): Observable<any> {
     return this.http.post('/api/auth-jwt/login', login, this.httpOptions)
-      .pipe(map(res => res['data']),
-      switchMap(data => {
-        if (data.login) {
-          localStorage.setItem('token', data.token);
-          this.loginEventService.loginEmit.emit(true);
-        }
-        return of(data);
+      .pipe(map(res => {
+        this.loginTransformService.doLoginTransform(res['data']);
+        return res['data'];
       }),
         catchError(this.handleError)
       );
-  }
-
-  getAutenticado() {
-    return this.usuarioAutenticado;
   }
 
   private handleError(error: HttpErrorResponse) {
