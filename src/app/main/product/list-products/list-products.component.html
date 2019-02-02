@@ -1,6 +1,7 @@
 <table class="table table-striped table-dark">
   <thead>
     <tr>
+        <th scope="col">ID</th>
       <th scope="col">Nome</th>
       <th scope="col">Preço</th>
       <th scope="col">Alterar</th>
@@ -9,10 +10,11 @@
   </thead>
   <tbody>
     <tr *ngFor="let product of products; let idx = index">
+      <th scope="row">{{product.id}}</th>
       <th scope="row">{{product.name}}</th>
       <td>{{product.price}}</td>
       <td><button class="btn btn-secondary" (click)="openDialog(product)">Alterar</button></td>
-      <td><button class="btn btn-danger" (click)="removerProduct(idx)">Excluir</button></td>
+      <td><button class="btn btn-danger" (click)="removerProduct(idx, product.id)">Excluir</button></td>
     </tr>    
   </tbody>
 </table>

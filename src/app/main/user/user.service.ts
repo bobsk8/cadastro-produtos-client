@@ -23,7 +23,7 @@ export class UserService {
   ) { }
 
   getUserData(): Observable<any> {
-    return this.http.get('api/user/datas', this.httpOptions)
+    return this.http.get('/api/auth-jwt/datas', this.httpOptions)
     .pipe(map(res => {
       this.userTransformService.doUserDataTransform(res['data']);
       return res['data'];

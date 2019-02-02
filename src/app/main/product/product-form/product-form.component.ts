@@ -20,6 +20,7 @@ export class ProductFormComponent implements OnInit {
   ngOnInit() {
     this.product = new Product();
     this.formulario = this.formBuilder.group({
+      id: [0, [Validators.required]],
       name: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(35)]],
       price: [0, [Validators.required]]
     });
@@ -30,6 +31,7 @@ export class ProductFormComponent implements OnInit {
   onSubmit(formulario) {
     this.product = new Product();
     if (formulario.valid) {
+      this.product.id = formulario.controls.id.value;
       this.product.name = formulario.controls.name.value;
       this.product.price = parseInt(formulario.controls.price.value, 10);
       this.submitted = true;

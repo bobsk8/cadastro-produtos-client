@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
   loginApp(login) {
     this.authService.doLogin(login)
       .subscribe(res => {
-        if (res.login) {
+        if (res && res.login) {
           this.router.navigate(['home']);
         }
       });

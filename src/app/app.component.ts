@@ -29,7 +29,7 @@ export class AppComponent implements OnInit {
   getUserData() {
     this.userService.getUserData()
       .subscribe(res => {
-        if (res.login) {
+        if (res && res.login) {
           this.mostrarMenu = true;
         }
       }, err => {

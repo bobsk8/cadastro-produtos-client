@@ -1,9 +1,11 @@
 <h1 mat-dialog-title>Alterar</h1>
 <div mat-dialog-content>
-    <label>Nome</label>
+  <label>Id</label>
+  <input type="number" class="form-control" [(ngModel)]="product.id">
+  <label>Nome</label>
   <input class="form-control" [(ngModel)]="product.name">
   <label>Preço</label>
-  <input class="form-control" [(ngModel)]="product.price">
+  <input type="number" class="form-control" [(ngModel)]="product.price">
 </div>
 <div mat-dialog-actions>
   <div class="form-group">
