@@ -1,29 +1,47 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { Router } from '@angular/router';
-
-import { Login } from './login';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+import { LoginTransformService } from './transform/login-transform.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+    })
+  };
 
-  private usuarioAutenticado = false;
-  mostrarMenuEmitter = new EventEmitter<boolean>();
-  constructor(private router: Router) { }
+  constructor(
+    private http: HttpClient,
+    private loginTransformService: LoginTransformService,
+  ) { }
 
-  doLogin(login: any) {
-    if (login.username.value === 'bobsk8' && login.pass.value === 'vasco20') {
-      this.usuarioAutenticado = true;
-      this.mostrarMenuEmitter.emit(true);
-      this.router.navigate(['home']);
-    } else {
-      this.usuarioAutenticado = false;
-      this.mostrarMenuEmitter.emit(false);
-    }
+  doLogin(login: any): Observable<any> {
+    return this.http.post('/api/auth-jwt/login', login, this.httpOptions)
+      .pipe(map(res => {
+        this.loginTransformService.doLoginTransform(res['data']);
+        return res['data'];
+      }),
+        catchError(this.handleError)
+      );
   }
 
-  usuarioEstaAutenticado() {
-    return this.usuarioAutenticado;
+  private handleError(error: HttpErrorResponse) {
+    if (error.error instanceof ErrorEvent) {
+      // A client-side or network error occurred. Handle it accordingly.
+      console.error('An error occurred:', error.error.message);
+    } else {
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong,
+      console.error(
+        `Backend returned code ${error.status}, ` +
+        `body was: ${error.error}`);
+    }
+    // return an observable with a user-facing error message
+    return throwError(
+      'Something bad happened; please try again later.');
   }
 }

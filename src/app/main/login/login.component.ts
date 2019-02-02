@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './auth.service';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { Login } from './login';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,8 +13,10 @@ export class LoginComponent implements OnInit {
 
   formulario: FormGroup;
   submitted = false;
+  login: Login;
   constructor(
     private authService: AuthService,
+    private router: Router,
     private formBuilder: FormBuilder) { }
 
   ngOnInit() {
@@ -23,16 +27,24 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
+    this.login = new Login();
     this.submitted = true;
     if (this.formulario.valid) {
-      this.loginApp();
+      this.login.username = this.formulario.controls.username.value;
+      this.login.pass = this.formulario.controls.pass.value;
+      this.loginApp(this.login);
     }
   }
 
   get form() { return this.formulario.controls; }
 
-  loginApp() {
-    this.authService.doLogin(this.formulario.controls);
+  loginApp(login) {
+    this.authService.doLogin(login)
+      .subscribe(res => {
+        if (res && res.login) {
+          this.router.navigate(['home']);
+        }
+      });
   }
 
 }
